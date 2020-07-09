@@ -9,7 +9,7 @@ import java.util.*;
  * Simple brute force implementation
  *
  * @author Caroline, Lepetit Florian
- * @version 0.4
+ * @version 0.6
  */
 public class ReadSymptomDataFromFile implements ISymptomReader {
 
@@ -73,10 +73,23 @@ public class ReadSymptomDataFromFile implements ISymptomReader {
 		return uSymptoms;
 	}
 
-    @Override
-    public TreeMap<String, Integer> GetSortsMapSymptoms() {
-        return null;
-    }
+	/**
+	 * Create a TreeMap to sort the hashMap that is returned by MapSymptoms()
+	 *
+	 * @return an alphabetical sorted Map of the symptoms
+	 * @see #GetMapSymptoms()
+	 * <p>It copy both the key and the value and sort in alphabetical order</p>
+	 */
+	@Override
+	public TreeMap<String, Integer> GetSortsMapSymptoms() {
+		TreeMap<String, Integer> sortedSymptoms = new TreeMap<>();
+		for (Map.Entry<String, Integer> entry : GetMapSymptoms().entrySet()) {
+			String key = entry.getKey();
+			Integer value = entry.getValue();
+			sortedSymptoms.put(key, value);
+		}
+		return sortedSymptoms;
+	}
 
     @Override
     public void Output() {
