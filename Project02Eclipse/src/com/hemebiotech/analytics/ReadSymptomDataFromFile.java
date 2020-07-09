@@ -2,6 +2,7 @@ package com.hemebiotech.analytics;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
@@ -9,7 +10,7 @@ import java.util.*;
  * Simple brute force implementation
  *
  * @author Caroline, Lepetit Florian
- * @version 0.6
+ * @version 0.8
  */
 public class ReadSymptomDataFromFile implements ISymptomReader {
 
@@ -91,9 +92,27 @@ public class ReadSymptomDataFromFile implements ISymptomReader {
 		return sortedSymptoms;
 	}
 
-    @Override
-    public void Output() {
-
-    }
-
+	/**
+	 * Both write and print an output
+	 * <ul>
+	 *     <li>write the result in a file named "result.out"</li>
+	 *     <li>print in the console the output</li>
+	 * </ul>
+	 *
+	 * @throws java.io.IOException is about all Input and Output exception like java.io.FileNotFoundException
+	 */
+	@Override
+	public void Output() {
+		try {
+			FileWriter writer = new FileWriter("result.out");
+			for (String key : GetSortsMapSymptoms().keySet()) {
+				System.out.println(key + ":" + GetSortsMapSymptoms().get(key));
+				writer.write(key + ":" + GetSortsMapSymptoms().get(key) + "\n");
+			}
+			writer.close();
+		} catch (java.io.IOException e) {
+			e.printStackTrace();
+			System.out.println("this file can't be created, edited or opened for any reasons.");
+		}
+	}
 }
