@@ -3,14 +3,13 @@ package com.hemebiotech.analytics;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.util.*;
 
 /**
  * Simple brute force implementation
  *
  * @author Caroline, Lepetit Florian
- * @version 0.8
+ * @version 0.8.2
  */
 public class ReadSymptomDataFromFile implements ISymptomReader {
 
