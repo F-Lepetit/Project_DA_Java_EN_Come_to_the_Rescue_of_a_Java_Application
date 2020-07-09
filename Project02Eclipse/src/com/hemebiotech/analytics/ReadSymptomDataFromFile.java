@@ -3,16 +3,13 @@ package com.hemebiotech.analytics;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * Simple brute force implementation
  *
  * @author Caroline, Lepetit Florian
- * @version 0.2
+ * @version 0.4
  */
 public class ReadSymptomDataFromFile implements ISymptomReader {
 
@@ -54,10 +51,27 @@ public class ReadSymptomDataFromFile implements ISymptomReader {
         return result;
     }
 
-    @Override
-    public Map<String, Integer> GetMapSymptoms() {
-        return null;
-    }
+	/**
+	 * Create a hashMap and count the symptoms by reading each entry of result from the method GetSymptoms
+	 *
+	 * @return an unordered Map of the symptoms without duplicates
+	 * @see #GetSymptoms()
+	 * <p>it delete the duplicates and count the number of each symptoms</p>
+	 */
+	@Override
+	public Map<String, Integer> GetMapSymptoms() {
+		Map<String, Integer> uSymptoms = new HashMap<>();
+
+		for (String key : GetSymptoms()) {
+
+			if (uSymptoms.containsKey(key)) {
+				uSymptoms.replace(key, uSymptoms.get(key) + 1);
+			} else {
+				uSymptoms.put(key, 1);
+			}
+		}
+		return uSymptoms;
+	}
 
     @Override
     public TreeMap<String, Integer> GetSortsMapSymptoms() {
