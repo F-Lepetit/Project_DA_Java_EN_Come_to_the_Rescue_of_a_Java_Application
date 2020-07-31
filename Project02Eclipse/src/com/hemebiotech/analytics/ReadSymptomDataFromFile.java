@@ -14,7 +14,7 @@ import java.util.*;
 public class ReadSymptomDataFromFile implements ISymptomReader {
 
     private final String filepath;
-
+	private static boolean validate = true;
     /**
      * @param filepath a full or partial path to file with symptom strings in it, one per line
      */
@@ -32,7 +32,7 @@ public class ReadSymptomDataFromFile implements ISymptomReader {
     @Override
     public List<String> GetSymptoms() {
         ArrayList<String> result = new ArrayList<>();
-        if (filepath != null) {
+        if (validate && filepath != null) {
             try {
                 BufferedReader reader = new BufferedReader(new FileReader(filepath));
                 String line = reader.readLine();
@@ -45,6 +45,7 @@ public class ReadSymptomDataFromFile implements ISymptomReader {
             } catch (java.io.IOException e) {
                 e.printStackTrace();
                 System.out.println("Wrong filepath specified !");
+                validate = false;
             }
         }
 
@@ -103,7 +104,7 @@ public class ReadSymptomDataFromFile implements ISymptomReader {
 	@Override
 	public void Output() {
 		try {
-			FileWriter writer = new FileWriter("result.out");
+			FileWriter writer = new FileWriter("results.out");
 			for (String key : GetSortsMapSymptoms().keySet()) {
 				System.out.println(key + ":" + GetSortsMapSymptoms().get(key));
 				writer.write(key + ":" + GetSortsMapSymptoms().get(key) + "\n");
